@@ -54,8 +54,8 @@ export default {
       this.$store.commit('user/setIsPersonalLibrary', isPersonal)
       this.$eventBus.$emit('profile-changed', isPersonal)
       setTimeout(() => {
-        window.location.reload()
-      }, 1000)
+        window.location.replace('/bookshelf?profile=' + isPersonal)
+      }, 100)
     }
   },
   mounted() {}

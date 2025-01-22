@@ -29,6 +29,17 @@ export default {
     }
   },
   watch: {
+    '$route.query': {
+      handler(newQuery, _) {
+        if ('profile' in newQuery) {
+          this.$store.commit('user/setIsPersonalLibrary', Number(newQuery.profile))
+          this.$router.replace({ path: '/bookshelf' })
+        }
+        // You can call a method or update state here
+      },
+      deep: true, // Ensures nested query params are detected
+      immediate: true // Runs on component mount
+    },
     networkConnected: {
       handler(newVal, oldVal) {
         if (!this.hasMounted) {
@@ -95,7 +106,7 @@ export default {
       const selectedCollections = await this.$localStore.getSelectedCollections()
       const selectedPlaylist = await this.$localStore.getSelectedPlaylist()
 
-      this.$store.commit('user/setIsPersonalLibrary', isPersonalLibrary)
+      // this.$store.commit('user/setIsPersonalLibrary', isPersonalLibrary)
 
       if (selectedPlaylist) {
         this.$store.commit('user/selectedPlaylist', selectedPlaylist)
