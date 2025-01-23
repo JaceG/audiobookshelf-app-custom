@@ -7,7 +7,6 @@
       <a v-if="showBack" @click="back" class="rounded-full h-10 w-10 flex items-center justify-center mr-2 cursor-pointer">
         <span class="material-icons text-3xl text-fg">arrow_back</span>
       </a>
-      {{ JSON.stringify(currentLibrary) }}
       <div v-if="user && currentLibrary && socketConnected">
         <div class="flex">
           <div class="pl-1.5 pr-2.5 py-2 bg-bg bg-opacity-30 rounded-md flex items-center" @click="clickShowLibraryModal">
@@ -82,6 +81,7 @@ export default {
       return this.$store.state.user.user
     },
     profile() {
+      console.log('$store.state.user.isPersonalLibrary', this.$store.state.user.isPersonalLibrary)
       return Boolean(Number(this.$store.state.user.isPersonalLibrary)) ? 'Personal Profile' : 'Jace Profile'
     },
     username() {

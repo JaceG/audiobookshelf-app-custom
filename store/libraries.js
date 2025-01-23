@@ -12,8 +12,8 @@ export const state = () => ({
 })
 
 export const getters = {
-  getCurrentLibrary: state => {
-    return state.libraries.find(lib => lib.id === state.currentLibraryId)
+  getCurrentLibrary: (state) => {
+    return state.libraries.find((lib) => lib.id === state.currentLibraryId)
   },
   getCurrentLibraryName: (state, getters) => {
     return getters.getCurrentLibrary?.name || null
@@ -83,7 +83,7 @@ export const actions = {
         const libraries = data.libraries || data
 
         // Set current library if not already set or was not returned in results
-        if (libraries.length && (!state.currentLibraryId || !libraries.find(li => li.id == state.currentLibraryId))) {
+        if (libraries.length && (!state.currentLibraryId || !libraries.find((li) => li.id == state.currentLibraryId))) {
           commit('setCurrentLibrary', libraries[0].id)
         }
 
@@ -96,8 +96,7 @@ export const actions = {
         commit('set', [])
         return false
       })
-  },
-
+  }
 }
 
 export const mutations = {
@@ -119,7 +118,7 @@ export const mutations = {
     state.libraries = libraries
   },
   addUpdate(state, library) {
-    var index = state.libraries.findIndex(a => a.id === library.id)
+    var index = state.libraries.findIndex((a) => a.id === library.id)
     if (index >= 0) {
       state.libraries.splice(index, 1, library)
     } else {
@@ -127,7 +126,7 @@ export const mutations = {
     }
   },
   remove(state, library) {
-    state.libraries = state.libraries.filter(a => a.id !== library.id)
+    state.libraries = state.libraries.filter((a) => a.id !== library.id)
   },
   setLibraryIssues(state, val) {
     state.issues = val
