@@ -105,13 +105,13 @@ export default {
         })
       }
 
-      if (this.showRSSFeedOption) {
-        items.push({
-          text: this.rssFeed ? this.$strings.HeaderRSSFeed : this.$strings.HeaderOpenRSSFeed,
-          value: 'rssFeed',
-          icon: 'rss_feed'
-        })
-      }
+      // if (this.showRSSFeedOption) {
+      //   items.push({
+      //     text: this.rssFeed ? this.$strings.HeaderRSSFeed : this.$strings.HeaderOpenRSSFeed,
+      //     value: 'rssFeed',
+      //     icon: 'rss_feed'
+      //   })
+      // }
 
       if (this.localLibraryItemId) {
         items.push({
@@ -135,13 +135,13 @@ export default {
         }
       }
 
-      if (this.isConnectedToServer) {
-        items.push({
-          text: this.$strings.ButtonGoToWebClient,
-          value: 'openWebClient',
-          icon: 'language'
-        })
-      }
+      // if (this.isConnectedToServer) {
+      //   items.push({
+      //     text: this.$strings.ButtonGoToWebClient,
+      //     value: 'openWebClient',
+      //     icon: 'language'
+      //   })
+      // }
 
       if (!this.episode) {
         items.push({

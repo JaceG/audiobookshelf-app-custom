@@ -81,14 +81,14 @@ export default {
             iconClass: 'text-xl',
             text: this.$strings.ButtonHome
           },
-          {
-            to: '/bookshelf/my-playlist',
-            routeName: 'bookshelf-my-playlist',
-            iconPack: 'abs-icons',
-            icon: this.currentPlaylistIcon,
-            iconClass: 'text-lg',
-            text: this.$strings.ButtonPlaylist
-          },
+          // {
+          //   to: '/bookshelf/my-playlist',
+          //   routeName: 'bookshelf-my-playlist',
+          //   iconPack: 'abs-icons',
+          //   icon: this.currentPlaylistIcon,
+          //   iconClass: 'text-lg',
+          //   text: this.$strings.ButtonPlaylist
+          // },
           {
             to: '/bookshelf/library',
             routeName: 'bookshelf-library',

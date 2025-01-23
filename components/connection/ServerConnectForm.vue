@@ -34,7 +34,7 @@
             <span class="material-icons text-fg-muted">arrow_back</span>
           </div> -->
           <div class="flex items-center">
-            <p class="text-fg-muted">{{ serverConfig.address }}</p>
+            <p class="text-2xl">Login</p>
             <div class="flex-grow" />
             <!-- <span v-if="!serverConfig.id" class="material-icons" style="font-size: 1.1rem" @click="editServerAddress">edit</span> -->
           </div>
@@ -46,11 +46,17 @@
             <div class="flex items-center pt-2">
               <ui-icon-btn v-if="serverConfig.id" small bg-color="error" icon="delete" type="button" @click="removeServerConfigClick" />
               <div class="flex-grow" />
-              <ui-btn :disabled="processing || !networkConnected" type="submit" class="mt-1 h-10">{{ networkConnected ? $strings.ButtonSubmit : $strings.MessageNoNetworkConnection }}</ui-btn>
+              <div class="flex justify-between w-full items-center">
+                <p>
+                  <nuxt-link to="/register" class="top-2 left-2 z-20">
+                    <p class="text-1xl underline">Create Account</p>
+                  </nuxt-link>
+                </p>
+                <ui-btn :disabled="processing || !networkConnected" type="submit" class="mt-1 h-10">{{ networkConnected ? $strings.ButtonSubmit : $strings.MessageNoNetworkConnection }}</ui-btn>
+              </div>
             </div>
           </form>
           <div v-if="isLocalAuthEnabled && isOpenIDAuthEnabled" class="w-full h-px bg-fg/10 my-4" />
-          <ui-btn v-if="isOpenIDAuthEnabled" :disabled="processing" class="h-10 w-full" @click="clickLoginWithOpenId">{{ oauth.buttonText }}</ui-btn>
         </template>
       </div>
 
@@ -71,8 +77,6 @@
         </svg>
       </div>
     </div>
-
-    <p v-if="!serverConnectionConfigs.length" class="mt-2 text-center text-error" v-html="$strings.MessageAudiobookshelfServerRequired" />
 
     <modals-custom-headers-modal v-model="showAddCustomHeaders" :custom-headers.sync="serverConfig.customHeaders" />
   </div>

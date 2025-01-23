@@ -101,11 +101,11 @@ export default {
           }
         ].concat(items)
       } else {
-        items.push({
-          icon: 'person',
-          text: this.$strings.HeaderAccount,
-          to: '/account'
-        })
+        // items.push({
+        //   icon: 'person',
+        //   text: this.$strings.HeaderAccount,
+        //   to: '/account'
+        // })
         items.push({
           icon: 'equalizer',
           text: this.$strings.ButtonUserStats,
@@ -114,12 +114,12 @@ export default {
       }
 
       if (this.$platform !== 'ios') {
-        items.push({
-          icon: 'folder',
-          iconOutlined: true,
-          text: this.$strings.ButtonLocalMedia,
-          to: '/localMedia/folders'
-        })
+        // items.push({
+        //   icon: 'folder',
+        //   iconOutlined: true,
+        //   text: this.$strings.ButtonLocalMedia,
+        //   to: '/localMedia/folders'
+        // })
       } else {
         items.push({
           icon: 'download',
@@ -135,11 +135,11 @@ export default {
       })
 
       if (this.serverConnectionConfig) {
-        items.push({
-          icon: 'language',
-          text: this.$strings.ButtonGoToWebClient,
-          action: 'openWebClient'
-        })
+        // items.push({
+        //   icon: 'language',
+        //   text: this.$strings.ButtonGoToWebClient,
+        //   action: 'openWebClient'
+        // })
 
         items.push({
           icon: 'login',
@@ -186,9 +186,9 @@ export default {
       this.$store.commit('user/logout')
       this.$store.commit('libraries/setCurrentLibrary', null)
       setTimeout(async () => {
-        this.$store.commit('setDeviceData', null);
-        localStorage.clear();
-      },100)
+        this.$store.commit('setDeviceData', null)
+        localStorage.clear()
+      }, 100)
     },
     async disconnect() {
       await this.$hapticsImpact()

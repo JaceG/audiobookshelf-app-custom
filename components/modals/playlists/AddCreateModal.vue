@@ -3,7 +3,7 @@
     <div class="flex items-end justify-between h-24 px-4 pb-2">
       <h1 class="text-lg">{{ $strings.LabelAddToPlaylist }}</h1>
       <button class="flex" @click="show = false">
-        <span class="material-icons">close</span>
+        <span class="material-icons">closvvve</span>
       </button>
     </div>
 
@@ -98,6 +98,9 @@ export default {
           }
         })
         .sort((a, b) => (a.isItemIncluded ? -1 : 1))
+    },
+    isPersonalLibrary() {
+      return this.$store.state.user.isPersonalLibrary
     }
   },
   methods: {
@@ -185,7 +188,7 @@ export default {
       }
 
       this.$nativeHttp
-        .post('/api/playlists', newPlaylist)
+        .post('/api/playlists?personalProfile=' + this.isPersonalLibrary, newPlaylist)
         .then((data) => {
           console.log('New playlist created', data)
           this.newPlaylistName = ''
