@@ -895,6 +895,7 @@ export default {
   },
   mounted() {
     this.$eventBus.$on('url-open', this.appUrlOpen)
+    this.$store.commit('user/setServerConnectionConfig', null)
     this.init()
   },
   beforeDestroy() {
