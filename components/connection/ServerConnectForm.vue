@@ -33,30 +33,28 @@
           <!-- <div v-if="serverConfig.id" class="flex items-center mb-4" @click="showServerList">
             <span class="material-icons text-fg-muted">arrow_back</span>
           </div> -->
+
           <div class="flex items-center">
-            <p class="text-2xl">Login</p>
+            <p class="text-fg-muted">Login</p>
+            <!-- <p class="text-fg-muted">{{ serverConfig.address }}</p>
             <div class="flex-grow" />
-            <!-- <span v-if="!serverConfig.id" class="material-icons" style="font-size: 1.1rem" @click="editServerAddress">edit</span> -->
+            <span v-if="!serverConfig.id" class="material-icons" style="font-size: 1.1rem" @click="editServerAddress">edit</span> -->
           </div>
           <div class="w-full h-px bg-fg/10 my-2" />
           <form v-if="isLocalAuthEnabled" @submit.prevent="submitAuth" class="pt-3">
             <ui-text-input v-model="serverConfig.username" :disabled="processing" :placeholder="$strings.LabelUsername" class="w-full mb-2 text-lg" />
             <ui-text-input v-model="password" type="password" :disabled="processing" :placeholder="$strings.LabelPassword" class="w-full mb-2 text-lg" />
 
-            <div class="flex items-center pt-2">
+            <div class="pt-2">
               <ui-icon-btn v-if="serverConfig.id" small bg-color="error" icon="delete" type="button" @click="removeServerConfigClick" />
-              <div class="flex-grow" />
-              <div class="flex justify-between w-full items-center">
-                <p>
-                  <nuxt-link to="/register" class="top-2 left-2 z-20">
-                    <p class="text-1xl underline">Create Account</p>
-                  </nuxt-link>
-                </p>
+              <div class="flex justify-between w-100 items-center">
+                <nuxt-link to="/register" class="underline"> Create Account </nuxt-link>
                 <ui-btn :disabled="processing || !networkConnected" type="submit" class="mt-1 h-10">{{ networkConnected ? $strings.ButtonSubmit : $strings.MessageNoNetworkConnection }}</ui-btn>
               </div>
             </div>
           </form>
           <div v-if="isLocalAuthEnabled && isOpenIDAuthEnabled" class="w-full h-px bg-fg/10 my-4" />
+          <ui-btn v-if="isOpenIDAuthEnabled" :disabled="processing" class="h-10 w-full" @click="clickLoginWithOpenId">{{ oauth.buttonText }}</ui-btn>
         </template>
       </div>
 
@@ -77,6 +75,8 @@
         </svg>
       </div>
     </div>
+
+    <!-- <p v-if="!serverConnectionConfigs.length" class="mt-2 text-center text-error" v-html="$strings.MessageAudiobookshelfServerRequired" /> -->
 
     <modals-custom-headers-modal v-model="showAddCustomHeaders" :custom-headers.sync="serverConfig.customHeaders" />
   </div>
@@ -489,8 +489,9 @@ export default {
     validateServerUrl(url, protocolOverride = null) {
       try {
         var urlObject = new URL(url)
-        if (protocolOverride) urlObject.protocol = protocolOverride
-        return urlObject.href
+        var address = `${protocolOverride ? protocolOverride : urlObject.protocol}//${urlObject.hostname}`
+        if (urlObject.port) address += ':' + urlObject.port
+        return address
       } catch (error) {
         console.error('Invalid URL', error)
         return null
@@ -793,27 +794,16 @@ export default {
       this.processing = true
 
       var payload = await this.requestServerLogin()
-      const token = payload?.user?.token || ''
       this.processing = false
+      const token = payload?.user?.token || ''
       if (payload) {
         this.setUserAndConnection(payload)
         setTimeout(async () => {
           const userAssignedLibraries = await this.getRequest(`${this.serverConfig.address}/api/custom/assign-audiobook`, {
             Authorization: `Bearer ${token}`
           })
-          const userAssignedCollections = await this.getRequest(`${this.serverConfig.address}/api/custom/assign-collection`, {
-            Authorization: `Bearer ${token}`
-          })
-          const userAssignedPlaylist = await this.getRequest(`${this.serverConfig.address}/api/custom/assign-playlist`, {
-            Authorization: `Bearer ${token}`
-          })
           const libIds = userAssignedLibraries?.data?.data?.map((lib) => lib.libId) || []
-          const collectionIds = userAssignedCollections?.data?.data?.map((collection) => collection.collectionId) || []
-          const playlistIds = userAssignedPlaylist?.data?.data?.map((playlist) => playlist.playlistId) || []
-
           this.$store.commit('user/selectedLibraries', libIds)
-          this.$store.commit('user/selectedCollections', collectionIds)
-          this.$store.commit('user/selectedPlaylist', playlistIds)
         }, 1000)
       }
     },
@@ -895,7 +885,6 @@ export default {
   },
   mounted() {
     this.$eventBus.$on('url-open', this.appUrlOpen)
-    this.$store.commit('user/setServerConnectionConfig', null)
     this.init()
   },
   beforeDestroy() {

@@ -15,7 +15,7 @@
           <div class="w-full">
             <template>
               <div class="flex items-center">
-                <p class="text-2xl">Register</p>
+                <p class="text-fg-muted">Register</p>
                 <div class="flex-grow" />
               </div>
               <div class="w-full h-px bg-fg/10 my-2" />
@@ -26,13 +26,14 @@
                 <p class="text-error my-2">{{ validationErrors.username }}</p>
                 <ui-text-input @input="validatePassword" v-model="password" type="password" :placeholder="$strings.LabelPassword" class="w-full mb-2 text-lg" />
                 <p class="text-error my-2">{{ validationErrors.password }}</p>
-                <div class="flex items-center pt-2">
-                  <div class="flex-grow" />
-                  <div class="flex justify-between w-full items-center">
-                    <p class="text-1xl top-2 left-2 z-20">
-                      Already have an account? <br />
-                      <nuxt-link to="/connect" class="underline"> Login here </nuxt-link>
-                    </p>
+                <ui-text-input @input="validateFriend" v-model="friend" :placeholder="$strings.LabelFriend" class="w-full mb-2 text-lg" />
+                <p class="text-error my-2">{{ validationErrors.friend }}</p>
+                <div class="pt-2">
+                  <div class="flex justify-between w-100 items-center">
+                    <div>
+                      <p>Already have account?</p>
+                      <nuxt-link to="/connect" class="underline"> Login </nuxt-link>
+                    </div>
                     <ui-btn type="submit" class="mt-1 h-10">Register</ui-btn>
                   </div>
                 </div>
@@ -74,6 +75,7 @@ export default {
       email: null,
       username: null,
       password: null,
+      friend: null,
       validationErrors: {}
     }
   },
@@ -121,6 +123,12 @@ export default {
         this.setValidationError('username', 'Username is required.')
       }
     },
+    validateFriend() {
+      this.clearValidations('friend')
+      if (!this.friend) {
+        this.setValidationError('friend', 'Refferal is required.')
+      }
+    },
 
     validatePassword() {
       this.clearValidations('password')
@@ -132,6 +140,7 @@ export default {
     validateInputs() {
       this.clearValidations()
       this.validateEmail()
+      this.validateFriend()
       this.validateUsername()
       this.validatePassword()
     },
@@ -141,12 +150,13 @@ export default {
         `http://localhost:3333/public/custom/register`,
         {
           username: this.username,
+          friend: this.friend,
           email: this.email,
           password: this.password,
           type: 'user',
           isActive: true,
-          permissions: { download: true, update: false, delete: false, upload: false, accessAllLibraries: false, accessAllTags: true, accessExplicitContent: false, selectedTagsNotAccessible: false, createEreader: false },
-          librariesAccessible: ['66f2575a-9eb1-4654-bd60-d5e115ac500b', '4170ceca-07cf-47a6-9dc0-ebba0c581a5f'],
+          permissions: { download: true, update: false, delete: false, upload: false, accessAllLibraries: true, accessAllTags: true, accessExplicitContent: false, selectedTagsNotAccessible: false, createEreader: true },
+          librariesAccessible: [],
           itemTagsSelected: []
         },
         null,

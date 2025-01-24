@@ -357,7 +357,6 @@ export default {
         return
       }
 
-      this.localLibraryItems = await this.$db.getLocalLibraryItems(this.currentLibraryMediaType)
       console.log('Local library items loaded for lazy bookshelf', this.localLibraryItems.length)
 
       this.isFirstInit = true

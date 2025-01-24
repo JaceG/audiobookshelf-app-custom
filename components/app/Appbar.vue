@@ -9,10 +9,10 @@
       </a>
       <div v-if="user && currentLibrary && socketConnected">
         <div class="flex">
-          <div class="pl-1.5 pr-2.5 py-2 bg-bg bg-opacity-30 rounded-md flex items-center" @click="clickShowLibraryModal">
+          <!-- <div class="pl-1.5 pr-2.5 py-2 bg-bg bg-opacity-30 rounded-md flex items-center" @click="clickShowLibraryModal">
             <ui-library-icon :icon="currentLibraryIcon" :size="4" font-size="base" />
             <p class="text-sm leading-4 ml-2 mt-0.5 max-w-24 truncate">{{ currentLibraryName }}</p>
-          </div>
+          </div> -->
           <div class="pl-1.5 pr-2.5 py-2 mx-2 bg-bg bg-opacity-30 rounded-md flex items-center" @click="clickShowProfileModal">
             <ui-library-icon :icon="currentProfileIcon" :size="4" font-size="base" />
             <p class="text-sm leading-4 ml-2 mt-0.5 max-w-24 truncate">{{ profile }}</p>
@@ -82,7 +82,7 @@ export default {
     },
     profile() {
       console.log('$store.state.user.isPersonalLibrary', this.$store.state.user.isPersonalLibrary)
-      return Boolean(Number(this.$store.state.user.isPersonalLibrary)) ? 'Personal Profile' : 'Jace Profile'
+      return Boolean(Number(this.$store.state.user.isPersonalLibrary)) ? 'My Library' : "Jace's Library"
     },
     username() {
       return this.user?.username || 'err'

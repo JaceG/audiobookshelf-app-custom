@@ -22,7 +22,7 @@
         </template>
       </div>
       <div class="absolute bottom-0 left-0 w-full py-6 px-6 text-fg">
-        <div v-if="serverConnectionConfig" class="mb-4 flex justify-center">
+        <!-- <div v-if="serverConnectionConfig" class="mb-4 flex justify-center">
           <p class="text-xs text-fg-muted" style="word-break: break-word">{{ serverConnectionConfig.address }} (v{{ serverSettings.version }})</p>
         </div>
         <div class="flex items-center">
@@ -32,7 +32,7 @@
             <p class="text-xs pr-2">{{ $strings.ButtonDisconnect }}</p>
             <i class="material-icons text-sm -mb-0.5">cloud_off</i>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

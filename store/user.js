@@ -6,16 +6,16 @@ export const state = () => ({
   selectedLibraries: [],
   selectedCollections: [],
   selectedPlaylist: [],
-  isPersonalLibrary: 0,
+  isPersonalLibrary: 1,
   showProfileModal: false,
   profiles: [
     {
       id: 'personal-profile',
-      name: 'Personal Profile'
+      name: 'My Library'
     },
     {
       id: 'jace-profile',
-      name: 'Jace Profile'
+      name: "Jace's Library"
     }
   ],
   settings: {

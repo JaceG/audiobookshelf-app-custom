@@ -17,7 +17,7 @@
 
     <div v-if="!shelves.length && !isLoading" class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
       <div>
-        <p class="mb-4 text-center text-xl">
+        <p v-if="user" class="mb-4 text-center text-xl">
           {{ $strings.MessageBookshelfEmpty }}
         </p>
         <div class="w-full" v-if="!user">
