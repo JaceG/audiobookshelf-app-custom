@@ -192,7 +192,7 @@ export const mutations = {
     }
   },
   setServerConnectionConfig(state, serverConnectionConfig) {
-    // state.serverConnectionConfig = serverConnectionConfig
+    state.serverConnectionConfig = serverConnectionConfig
   },
   setSettings(state, settings) {
     if (!settings) return
