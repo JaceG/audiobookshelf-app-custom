@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import { BASE_URL } from '../../constants/api'
+
 export default {
   props: {
     author: {
@@ -61,7 +63,7 @@ export default {
       if (!this.imagePath || !this.serverAddress) return null
       if (process.env.NODE_ENV !== 'production' && this.serverAddress.startsWith('http://192.168')) {
         // Testing
-        return `http://localhost:3333/api/authors/${this.authorId}/image?token=${this.userToken}&ts=${this.updatedAt}`
+        return `${BASE_URL}/api/authors/${this.authorId}/image?token=${this.userToken}&ts=${this.updatedAt}`
       }
       return `${this.serverAddress}/api/authors/${this.authorId}/image?token=${this.userToken}&ts=${this.updatedAt}`
     }
