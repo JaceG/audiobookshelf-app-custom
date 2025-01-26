@@ -786,11 +786,11 @@ export default {
         return
       }
 
-      const duplicateConfig = this.serverConnectionConfigs.find((scc) => scc.address === this.serverConfig.address && scc.username === this.serverConfig.username && this.serverConfig.id !== scc.id)
-      if (duplicateConfig) {
-        this.error = 'Config already exists for this address and username'
-        return
-      }
+      // const duplicateConfig = this.serverConnectionConfigs.find((scc) => scc.address === this.serverConfig.address && scc.username === this.serverConfig.username && this.serverConfig.id !== scc.id)
+      // if (duplicateConfig) {
+      //   this.error = 'Config already exists for this address and username'
+      //   return
+      // }
 
       this.error = null
       this.processing = true
