@@ -86,6 +86,7 @@
 import { Browser } from '@capacitor/browser'
 import { CapacitorHttp } from '@capacitor/core'
 import { Dialog } from '@capacitor/dialog'
+import { BASE_URL } from '../../constants/api'
 
 // TODO: when backend ready. See validateLoginFormResponse()
 //const requiredServerVersion = '2.5.0'
@@ -93,11 +94,12 @@ import { Dialog } from '@capacitor/dialog'
 export default {
   data() {
     return {
+      path: process.env.BASE_URL,
       loggedIn: false,
       showAuth: false,
       processing: false,
       serverConfig: {
-        address: 'http://localhost:3333',
+        address: BASE_URL,
         version: null,
         username: null,
         customHeaders: null

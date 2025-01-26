@@ -69,6 +69,8 @@
 
 <script>
 import { CapacitorHttp } from '@capacitor/core'
+import { BASE_URL } from '../constants/api'
+
 export default {
   data() {
     return {
@@ -147,7 +149,7 @@ export default {
 
     registerUser() {
       return this.postRequest(
-        `http://localhost:3333/public/custom/register`,
+        `${BASE_URL}/public/custom/register`,
         {
           username: this.username,
           friend: this.friend,
